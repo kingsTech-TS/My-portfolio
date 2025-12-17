@@ -1,26 +1,373 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 222 84% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 84% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 84% 5%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 18%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 224 76% 48%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* Custom Retro Fonts */
+.font-pixel {
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: -0.05em;
+}
+
+.font-vt323 {
+  font-family: "VT323", monospace;
+  font-size: 1.1em;
+}
+
+/* CRT Effect */
+.crt::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Scanlines */
+.scanlines::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.05) 0.5%, transparent 1%);
+  animation: scanlines 10s linear infinite;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch {
+  position: relative;
+  animation: glitch 500ms infinite;
+  animation-timing-function: step-end;
+  animation-play-state: paused;
+}
+
+.glitch:hover {
+  animation-play-state: running;
+}
+
+/* Neon Text Effect */
+.neon-text {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.neon-pink {
+  color: #ff00ff;
+}
+
+.neon-cyan {
+  color: #00ffff;
+}
+
+.neon-yellow {
+  color: #ffff00;
+}
+
+.neon-green {
+  color: #00ff00;
+}
+
+/* Terminal Text Animation */
+.terminal-text {
+  font-family: "VT323", monospace;
+  line-height: 1.5;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Digital Rain Animation */
+@keyframes digitalRain {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.digital-rain {
+  position: fixed;
+  color: #0f0;
+  font-family: "VT323", monospace;
+  font-size: 1.5rem;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  animation: digitalRain linear infinite;
+}
+
+/* Page Transition Animations */
+
+/* CRT Turn Off Effect */
+@keyframes crtOff {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  10% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.03);
+  }
+  80% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.001);
+  }
+}
+
+.animate-crt-off {
+  animation: crtOff 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* VHS Glitch Effect */
+.vhs-glitch {
+  background: linear-gradient(
+    transparent 0%,
+    rgba(32, 128, 255, 0.2) 2%,
+    rgba(32, 128, 255, 0.8) 3%,
+    rgba(32, 128, 255, 0.2) 3%,
+    transparent 100%
+  );
+  background-size: 100% 100%;
+  animation: vhsGlitch 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes vhsGlitch {
+  0% {
+    opacity: 0;
+    background-position: 0 0;
+  }
+  10% {
+    opacity: 1;
+    background-position: 0 20%;
+  }
+  20% {
+    background-position: 0 30%;
+  }
+  30% {
+    background-position: 0 50%;
+  }
+  40% {
+    background-position: 0 70%;
+    opacity: 0.8;
+  }
+  50% {
+    background-position: 0 80%;
+  }
+  60% {
+    background-position: 0 100%;
+    opacity: 0.5;
+  }
+  70% {
+    background-position: 0 110%;
+    opacity: 0.3;
+  }
+  80% {
+    background-position: 0 120%;
+    opacity: 0.2;
+  }
+  100% {
+    background-position: 0 130%;
+    opacity: 0;
+  }
+}
+
+/* Scanline Effect for Transitions */
+.scanline {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 10%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: scanlineAnim 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes scanlineAnim {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+/* Transition Effect Container */
+.transition-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Pixel art avatar styling */
+.pixel-avatar-container {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Add a specific class to ensure buttons are clickable */
+.btn-clickable {
+  position: relative;
+  z-index: 20;
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+
+/* Fix any potential pointer-events issues */
+button,
+a {
+  pointer-events: auto !important;
+}
+
+/* Ensure the digital rain doesn't block clicks */
+canvas.digital-rain {
+  pointer-events: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .font-pixel {
+    letter-spacing: -0.03em;
+  }
+
+  .neon-text {
+    text-shadow: 0 0 3px currentColor, 0 0 7px currentColor, 0 0 14px currentColor;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .btn-clickable {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
 }

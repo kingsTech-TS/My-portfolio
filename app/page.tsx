@@ -1,65 +1,138 @@
-import Image from "next/image";
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { Mail, User, Code, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import RetroHeading from "@/components/retro-heading"
+import PixelAvatar from "@/components/pixel-avatar"
+import { RetroGlitch } from "@/components/retro-glitch"
+import { ScanLines } from "@/components/scan-lines"
+import { NeonText } from "@/components/neon-text"
+import BootSequence from "@/components/boot-sequence"
+import DigitalRain from "@/components/digital-rain"
+import RainToggle from "@/components/rain-toggle"
+import Image from "next/image"
 
 export default function Home() {
+  const [showRain, setShowRain] = useState(true)
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900">
+      <BootSequence />
+      <ScanLines />
+      {showRain && <DigitalRain color="#00ff9b" speed={0.8} density={1.2} opacity={0.1} />}
+      <RainToggle onToggle={setShowRain} initialState={showRain} />
+
+      <div className="container relative z-10 px-4 py-8 mx-auto max-w-7xl sm:py-12 md:py-16">
+        <div className="grid items-center grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="flex flex-col space-y-4 sm:space-y-6">
+            <div className="inline-block">
+              <RetroGlitch>
+                <span className="text-base font-bold text-green-400 font-pixel sm:text-lg">NNABUGWU SOLOMON</span>
+              </RetroGlitch>
+            </div>
+
+            <RetroHeading>
+              <NeonText color="pink">KING&rsquo;s</NeonText>
+              <span className="text-white">TECH</span>
+              <span className="text-yellow-400">_</span>
+            </RetroHeading>
+
+            <p className="text-lg text-cyan-300 font-vt323 sm:text-xl">
+              I create <span className="text-yellow-400">pixel-perfect</span> web experiences with{" "}
+              <span className="text-green-400">modern</span> technologies.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-3 pt-2 sm:justify-start sm:gap-4 sm:pt-4">
+  <Link href="/projects" className="relative z-20">
+    <Button variant="retro" className="relative z-20 text-sm sm:text-base">
+      <span>View Projects</span>
+      <Code className="w-4 h-4 ml-2" />
+    </Button>
+  </Link>
+
+  <Link href="/contact" className="relative z-20">
+    <Button variant="retroPink" className="relative z-20 text-sm sm:text-base">
+      <span>Contact Me</span>
+      <Mail className="w-4 h-4 ml-2" />
+    </Button>
+  </Link>
+</div>
+
+          </div>
+
+
+          <div className="flex items-center justify-center mt-4 md:mt-0">
+            <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[400px]">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg blur-xl opacity-50 animate-pulse"></div>
+              <div className="relative p-1 overflow-hidden border-4 border-cyan-400 rounded-lg shadow-lg bg-indigo-950">
+               <PixelAvatar />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid grid-cols-1 gap-4 mt-16 sm:gap-6 sm:mt-20 md:grid-cols-3 md:mt-24">
+          {/* About Me Card */}
+          <Link href="/about" className="group h-full">
+            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-yellow-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-yellow-500/20">
+              <div>
+                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
+                  <User className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                  <h2 className="text-lg font-bold text-yellow-400 font-pixel sm:text-xl">About Me</h2>
+                </div>
+                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
+                  Learn about my journey, skills, and experience in the digital realm.
+                </p>
+              </div>
+              <div className="flex items-center mt-3 text-yellow-400 group-hover:translate-x-2 transition-transform sm:mt-4">
+                <span className="text-xs font-bold sm:text-sm">Explore</span>
+                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Projects Card */}
+          <Link href="/projects" className="group h-full">
+            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-green-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-green-500/20">
+              <div>
+                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
+                  <Code className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+                  <h2 className="text-lg font-bold text-green-400 font-pixel sm:text-xl">Projects</h2>
+                </div>
+                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
+                  Check out my latest work and the technologies I've mastered.
+                </p>
+              </div>
+              <div className="flex items-center mt-3 text-green-400 group-hover:translate-x-2 transition-transform sm:mt-4">
+                <span className="text-xs font-bold sm:text-sm">Discover</span>
+                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Contact Card */}
+          <Link href="/contact" className="group h-full">
+            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-pink-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-pink-500/20">
+              <div>
+                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
+                  <h2 className="text-lg font-bold text-pink-400 font-pixel sm:text-xl">Contact</h2>
+                </div>
+                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
+                  Get in touch for collaborations, opportunities, or just to say hello.
+                </p>
+              </div>
+              <div className="flex items-center mt-3 text-pink-400 group-hover:translate-x-2 transition-transform sm:mt-4">
+                <span className="text-xs font-bold sm:text-sm">Connect</span>
+                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+          </Link>
         </div>
-      </main>
-    </div>
-  );
+
+      </div>
+    </main>
+  )
 }
