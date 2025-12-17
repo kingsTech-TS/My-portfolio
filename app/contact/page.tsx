@@ -240,7 +240,7 @@ export default function ContactPage() {
                   </a>
 
                   <a
-                    href="/CV/Nnabugwu_Solomon_CV.docx"
+                    href="/CV/Nnabugwu_Solomon_CV.pdf"
                     download
                     onClick={handleDownload}
                     className="flex items-center justify-center p-2 transition-colors border-2 border-red-500 rounded-lg sm:p-3 bg-indigo-950/50 hover:bg-red-950/50 group"
