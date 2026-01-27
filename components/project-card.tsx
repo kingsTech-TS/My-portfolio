@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ExternalLink, Github } from "lucide-react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
 interface ProjectCardProps {
@@ -20,120 +21,141 @@ export default function ProjectCard({ title, description, image, tags, demoUrl, 
 
   const colorClasses = {
     pink: {
-      border: "border-pink-500",
+      border: "border-pink-500/50",
+      glow: "shadow-pink-500/20",
       text: "text-pink-400",
-      hover: "group-hover:bg-pink-950/50",
-      button: "border-pink-500 bg-transparent text-pink-400 hover:bg-pink-950/50 hover:text-pink-300",
+      badge: "bg-pink-500/10 text-pink-300 border-pink-500/20",
+      button: "border-pink-500/50 text-pink-400 hover:bg-pink-500/20",
     },
     cyan: {
-      border: "border-cyan-500",
+      border: "border-cyan-500/50",
+      glow: "shadow-cyan-500/20",
       text: "text-cyan-400",
-      hover: "group-hover:bg-cyan-950/50",
-      button: "border-cyan-500 bg-transparent text-cyan-400 hover:bg-cyan-950/50 hover:text-cyan-300",
+      badge: "bg-cyan-500/10 text-cyan-300 border-cyan-500/20",
+      button: "border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20",
     },
     yellow: {
-      border: "border-yellow-500",
+      border: "border-yellow-500/50",
+      glow: "shadow-yellow-500/20",
       text: "text-yellow-400",
-      hover: "group-hover:bg-yellow-950/50",
-      button: "border-yellow-500 bg-transparent text-yellow-400 hover:bg-yellow-950/50 hover:text-yellow-300",
+      badge: "bg-yellow-500/10 text-yellow-300 border-yellow-500/20",
+      button: "border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/20",
     },
     green: {
-      border: "border-green-500",
+      border: "border-green-500/50",
+      glow: "shadow-green-500/20",
       text: "text-green-400",
-      hover: "group-hover:bg-green-950/50",
-      button: "border-green-500 bg-transparent text-green-400 hover:bg-green-950/50 hover:text-green-300",
+      badge: "bg-green-500/10 text-green-300 border-green-500/20",
+      button: "border-green-500/50 text-green-400 hover:bg-green-500/20",
     },
     purple: {
-      border: "border-purple-500",
+      border: "border-purple-500/50",
+      glow: "shadow-purple-500/20",
       text: "text-purple-400",
-      hover: "group-hover:bg-purple-950/50",
-      button: "border-purple-500 bg-transparent text-purple-400 hover:bg-purple-950/50 hover:text-purple-300",
+      badge: "bg-purple-500/10 text-purple-300 border-purple-500/20",
+      button: "border-purple-500/50 text-purple-400 hover:bg-purple-500/20",
     },
     orange: {
-      border: "border-orange-500",
+      border: "border-orange-500/50",
+      glow: "shadow-orange-500/20",
       text: "text-orange-400",
-      hover: "group-hover:bg-orange-950/50",
-      button: "border-orange-500 bg-transparent text-orange-400 hover:bg-orange-950/50 hover:text-orange-300",
+      badge: "bg-orange-500/10 text-orange-300 border-orange-500/20",
+      button: "border-orange-500/50 text-orange-400 hover:bg-orange-500/20",
     },
     violet: {
-      border: "border-violet-500",
+      border: "border-violet-500/50",
+      glow: "shadow-violet-500/20",
       text: "text-violet-400",
-      hover: "group-hover:bg-violet-950/50",
-      button:
-        "border-violet-500 bg-transparent text-violet-400 hover:bg-violet-950/50 hover:text-violet-300",
+      badge: "bg-violet-500/10 text-violet-300 border-violet-500/20",
+      button: "border-violet-500/50 text-violet-400 hover:bg-violet-500/20",
     },
     black: {
-  border: "border-gray-600",
-  text: "text-gray-200",
-  hover: "group-hover:bg-black/50",
-  button:
-    "border-gray-600 bg-transparent text-gray-200 hover:bg-black/50 hover:text-gray-300",
-},
+      border: "border-gray-500/50",
+      glow: "shadow-gray-500/20",
+      text: "text-gray-400",
+      badge: "bg-gray-500/10 text-gray-300 border-gray-500/20",
+      button: "border-gray-500/50 text-gray-400 hover:bg-gray-500/20",
+    },
   }
 
+  const theme = colorClasses[color]
+
   return (
-    <div
-      className={`group relative overflow-hidden border-2 ${colorClasses[color].border} rounded-lg bg-indigo-950/50 transition-all duration-300 hover:shadow-lg`}
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      whileHover={{ y: -5 }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      className={`group relative flex flex-col overflow-hidden rounded-xl border-2 ${theme.border} bg-gray-950/80 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:${theme.glow}`}
     >
-      <div className="relative overflow-hidden aspect-video">
-        <div className="w-full h-full bg-indigo-800/50">
-          <Image
-            src={image || "/placeholder.svg"}
-            alt={title}
-            width={400}
-            height={225}
-            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-            unoptimized
-          />
-        </div>
-        <div
-          className={`absolute inset-0 opacity-0 ${colorClasses[color].hover} transition-opacity duration-300 group-hover:opacity-100`}
-        ></div>
+      {/* Image Container */}
+      <div className="relative aspect-video overflow-hidden bg-gray-900/50">
+        <Image
+          src={image || "/placeholder.svg"}
+          alt={title}
+          width={600}
+          height={338}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/20 to-transparent opacity-60" />
+        
+        {/* Overlay Actions */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovering ? 1 : 0 }}
+          className="absolute inset-0 flex items-center justify-center gap-3 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300"
+        >
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            href={demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button className={`${theme.button} border-2 bg-black/50 font-bold backdrop-blur-sm`}>
+              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+            </Button>
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            href={codeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline" className="border-white/20 bg-black/50 text-white hover:bg-white/10 backdrop-blur-sm">
+              <Github className="mr-2 h-4 w-4" /> Code
+            </Button>
+          </motion.a>
+        </motion.div>
       </div>
 
-      <div className="p-4 sm:p-6">
-        <h3 className={`mb-2 text-lg font-bold font-pixel ${colorClasses[color].text} sm:text-xl`}>{title}</h3>
-        <p className="mb-3 text-sm text-gray-300 font-vt323 sm:text-base sm:mb-4">{description}</p>
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className={`mb-2 font-pixel text-lg font-bold ${theme.text} sm:text-xl md:text-2xl`}>{title}</h3>
+        
+        <p className="mb-4 line-clamp-3 text-sm text-gray-300 font-vt323 leading-relaxed sm:text-base">
+          {description}
+        </p>
 
-        <div className="flex flex-wrap gap-1 mb-4 sm:gap-2 sm:mb-6">
+        <div className="mt-auto flex flex-wrap gap-2">
           {tags.map((tag, index) => (
             <span
               key={index}
-              className={`inline-block px-2 py-0.5 text-xs font-medium border ${colorClasses[color].border} rounded-md ${colorClasses[color].text} font-vt323 sm:px-2 sm:py-1`}
+              className={`rounded-md border px-2 py-1 text-xs font-medium font-vt323 transition-colors ${theme.badge}`}
             >
               {tag}
             </span>
           ))}
         </div>
-
-        <div className="flex flex-wrap gap-2 sm:gap-3">
-          <a href={demoUrl} target="_blank" rel="noopener noreferrer" className="relative z-20">
-            <Button className={`border-2 ${colorClasses[color].button} relative z-20 text-xs sm:text-sm`}>
-              <span className="mr-1 sm:mr-2">Demo</span>
-              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-          </a>
-
-          <a href={codeUrl} target="_blank" rel="noopener noreferrer" className="relative z-20">
-            <Button
-              variant="outline"
-              className="border-gray-700 text-gray-300 hover:bg-gray-800/50 hover:text-white relative z-20 text-xs sm:text-sm"
-            >
-              <span className="mr-1 sm:mr-2">Code</span>
-              <Github className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-          </a>
-        </div>
       </div>
 
-      {isHovering && (
-        <div
-          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-current to-transparent animate-pulse"
-          style={{ color: `var(--${color}-500)` }}
-        ></div>
-      )}
-    </div>
+      {/* Decorative Corner */}
+      <div className={`absolute -right-12 -top-12 h-24 w-24 bg-linear-to-br from-${color}-500/20 to-transparent blur-2xl group-hover:from-${color}-500/40 transition-all duration-500`} />
+    </motion.div>
   )
 }
