@@ -182,7 +182,7 @@ export default function ProjectsPage() {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-vt323 transition-all duration-300 border ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-vt323 transition-all duration-300 border cursor-pointer ${
                   filter === cat
                     ? "bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.3)]"
                     : "bg-black/20 border-white/10 text-gray-400 hover:border-white/30 hover:text-gray-200"
