@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Mail, User, Code, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -12,10 +12,22 @@ import { NeonText } from "@/components/neon-text"
 import BootSequence from "@/components/boot-sequence"
 import DigitalRain from "@/components/digital-rain"
 import RainToggle from "@/components/rain-toggle"
+import { Typewriter } from "@/components/typewriter"
 import Image from "next/image"
 
 export default function Home() {
   const [showRain, setShowRain] = useState(true)
+  const [showTech, setShowTech] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    // Initial start of deletion after 10 seconds of being idle
+    const timer = setTimeout(() => {
+      setIsDeleting(true)
+    }, 5000)
+    return () => clearTimeout(timer)
+  }, [key])
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900">
@@ -33,10 +45,38 @@ export default function Home() {
               </RetroGlitch>
             </div>
 
-            <RetroHeading>
-              <NeonText color="pink">KING&rsquo;s</NeonText>
-              <span className="text-white">TECH</span>
-              <span className="text-yellow-400">_</span>
+            <RetroHeading key={key}>
+              <NeonText color="pink">
+                <Typewriter
+                  text="KING's"
+                  isDeleting={isDeleting && !showTech}
+                  onComplete={() => {
+                    if (!isDeleting) {
+                      setShowTech(true)
+                    } else if (!showTech) {
+                      // KING's finished deleting
+                      setTimeout(() => {
+                        setIsDeleting(false)
+                        setKey((prev) => prev + 1)
+                      }, 1000)
+                    }
+                  }}
+                />
+              </NeonText>
+              {showTech && (
+                <>
+                  <span className="text-white ml-2">
+                    <Typewriter
+                      text="TECH"
+                      isDeleting={isDeleting}
+                      onComplete={() => {
+                        if (isDeleting) setShowTech(false)
+                      }}
+                    />
+                  </span>
+                  <span className="text-yellow-400 animate-pulse">_</span>
+                </>
+              )}
             </RetroHeading>
 
             <p className="text-lg text-cyan-300 font-vt323 sm:text-xl">

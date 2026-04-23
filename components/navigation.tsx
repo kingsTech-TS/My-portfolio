@@ -45,7 +45,7 @@ export default function Navigation() {
           <div className="relative">
             <RetroGlitch>
               <span className="text-xl font-bold text-cyan-400 font-pixel tracking-tighter group-hover:text-pink-400 transition-colors">
-                &lt;DEV_SOLO/&gt;
+                &lt;DEV/&gt;
               </span>
             </RetroGlitch>
             <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-cyan-500/50 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
@@ -89,20 +89,12 @@ export default function Navigation() {
                   : "text-gray-400 " + item.color
               } ${isTransitioning ? "pointer-events-none" : ""}`}
             >
-              {isActive(item.path) && (
-                <span className="absolute left-[-10px] top-0 opacity-50 animate-pulse">
-                  [
-                </span>
-              )}
               {item.name}
-              {isActive(item.path) && (
-                <span className="absolute right-[-10px] top-0 opacity-50 animate-pulse">
-                  ]
-                </span>
-              )}
 
               {/* Hover underline glitch */}
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-current transform scale-x-0 transition-transform group-hover:scale-x-100 duration-300 origin-right group-hover:origin-left"></span>
+              <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-current transform ${
+                isActive(item.path) ? "scale-x-100" : "scale-x-0"
+              } transition-transform group-hover:scale-x-100 duration-300 origin-right group-hover:origin-left`}></span>
             </Link>
           ))}
         </nav>
