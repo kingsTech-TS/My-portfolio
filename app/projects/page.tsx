@@ -54,7 +54,7 @@ const PROJECTS: Project[] = [
     category: "Web App",
   },
   {
-    title: "Attendance Managment System",
+    title: "Attendance Management System",
     description:
       "Showing up matters! Attendance reflects interest, reliability, and active participation, making every moment count in shared events and experiences.",
     image: "/Projects/attends.PNG",
