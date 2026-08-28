@@ -143,6 +143,9 @@ export default function AboutPage() {
                 <div className="flex flex-wrap gap-2">
                   <SkillBadge name="mySQL" color="rose" />
                   <SkillBadge name="Python" color="lime" />
+                  <SkillBadge name="Fast API" color="orange" />
+                  <SkillBadge name="Express.js" color="blue" />
+                  <SkillBadge name="Node" color="green" />
                 </div>
               </div>
 
