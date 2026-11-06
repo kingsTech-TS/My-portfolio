@@ -1,194 +1,100 @@
-"use client";
+import HeroCard from "@/components/hero-card"
+import { Card, Marquee, ProjectPhoneCard, ProjectStackCard, SectionLabel } from "@/components/bento"
+import { EXPERIENCE, type Project } from "@/lib/data"
+import { getProjects, getSkills } from "@/lib/api"
+import { checkEmbeddable } from "@/lib/embed"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Mail, User, Code, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import RetroHeading from "@/components/retro-heading";
-import PixelAvatar from "@/components/pixel-avatar";
-import { RetroGlitch } from "@/components/retro-glitch";
-import { ScanLines } from "@/components/scan-lines";
-import { NeonText } from "@/components/neon-text";
-import BootSequence from "@/components/boot-sequence";
-import DigitalRain from "@/components/digital-rain";
-import RainToggle from "@/components/rain-toggle";
-import { Typewriter } from "@/components/typewriter";
-import Image from "next/image";
+export const revalidate = 300
 
-export default function Home() {
-  const [showRain, setShowRain] = useState(true);
-  const [showTech, setShowTech] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [key, setKey] = useState(0);
+const SERVICES = [
+  { label: "Frontend development", glow: "tr" as const, wide: true },
+  { label: "Mobile Dev", glow: "r" as const },
+  { label: "Backend & APIs", glow: "bl" as const },
+]
 
-  useEffect(() => {
-    // Initial start of deletion after 10 seconds of being idle
-    const timer = setTimeout(() => {
-      setIsDeleting(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [key]);
+const subtitle = (p: Project) => [p.category, p.tags[0]].filter(Boolean).join(" · ")
+
+export default async function Home() {
+  const [projects, skills] = await Promise.all([getProjects(), getSkills()])
+  const allSkills = Object.values(skills).flat()
+
+  // Featured projects (set in the admin workspace), in site order; top up with the first projects.
+  const featured = [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)].slice(0, 3)
+  // Layout slots: 1st and 3rd as stacked cards on the right, 2nd in the phone mockup on the left.
+  const [stackTop, phone, stackBottom] = featured.length >= 2 ? featured : [featured[0], undefined, undefined]
+
+  // The phone mockup renders the live site in mobile view when the site allows embedding;
+  // otherwise it falls back to the project's screenshot.
+  const phoneLiveUrl =
+    phone?.demoUrl && phone.hasLiveDemo !== false && (await checkEmbeddable(phone.demoUrl)).embeddable
+      ? phone.demoUrl
+      : undefined
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900">
-      <BootSequence />
-      <ScanLines />
-      {showRain && (
-        <DigitalRain color="#00ff9b" speed={0.8} density={1.2} opacity={0.1} />
+    <div className="flex flex-col gap-5">
+      <HeroCard projectCount={projects.length} />
+
+      {allSkills.length > 0 && (
+        <Card delay={0.1} className="py-5">
+          <Marquee items={allSkills} />
+        </Card>
       )}
-      <RainToggle onToggle={setShowRain} initialState={showRain} />
 
-      <div className="container relative z-10 px-4 py-8 mx-auto max-w-7xl sm:py-12 md:py-16">
-        <div className="grid items-center grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="flex flex-col space-y-4 sm:space-y-6">
-            <div className="inline-block">
-              <RetroGlitch>
-                <span className="text-base font-bold text-green-400 font-pixel sm:text-lg">
-                  NNABUGWU SOLOMON
-                </span>
-              </RetroGlitch>
-            </div>
-
-            <RetroHeading key={key}>
-              <NeonText color="pink">
-                <Typewriter
-                  text="KING's"
-                  isDeleting={isDeleting && !showTech}
-                  onComplete={() => {
-                    if (!isDeleting) {
-                      setShowTech(true);
-                    } else if (!showTech) {
-                      // KING's finished deleting
-                      setTimeout(() => {
-                        setIsDeleting(false);
-                        setKey((prev) => prev + 1);
-                      }, 1000);
-                    }
-                  }}
-                />
-              </NeonText>
-              {showTech && (
-                <>
-                  <span className="text-white ml-2">
-                    <Typewriter
-                      text="TECH"
-                      isDeleting={isDeleting}
-                      onComplete={() => {
-                        if (isDeleting) setShowTech(false);
-                      }}
-                    />
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {/* Left column */}
+        <div className="flex flex-col gap-5">
+          <Card delay={0.05} className="px-7 py-10 sm:px-10 sm:py-12">
+            <SectionLabel>Recent Work</SectionLabel>
+            <ul className="mt-8 -mx-3">
+              {EXPERIENCE.map((job, i) => (
+                <li
+                  key={job.title}
+                  className="group/row flex items-center justify-between gap-4 rounded-2xl px-3 py-4 transition-colors hover:bg-white/[0.03]"
+                >
+                  <div>
+                    <p
+                      className={`text-lg font-medium tracking-tight sm:text-xl ${
+                        i === 0 ? "text-brand" : "text-white group-hover/row:text-brand"
+                      } transition-colors`}
+                    >
+                      {job.title}
+                    </p>
+                    <p className="mt-1 font-mono text-xs text-muted sm:text-sm">{job.date}</p>
+                  </div>
+                  <span className="shrink-0 rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-300 sm:text-sm">
+                    {job.company}
                   </span>
-                  <span className="text-yellow-400 animate-pulse">_</span>
-                </>
-              )}
-            </RetroHeading>
+                </li>
+              ))}
+            </ul>
+          </Card>
 
-            <p className="text-lg text-cyan-300 font-vt323 sm:text-xl">
-              I create <span className="text-yellow-400">pixel-perfect</span>{" "}
-              web experiences with{" "}
-              <span className="text-green-400">modern</span> technologies.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-3 pt-2 sm:justify-start sm:gap-4 sm:pt-4">
-              <Link href="/projects" className="relative z-20">
-                <Button
-                  variant="retro"
-                  className="relative z-20 text-sm sm:text-base"
-                >
-                  <span>View Projects</span>
-                  <Code className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-
-              <Link href="/contact" className="relative z-20">
-                <Button
-                  variant="retroPink"
-                  className="relative z-20 text-sm sm:text-base"
-                >
-                  <span>Contact Me</span>
-                  <Mail className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center mt-4 md:mt-0">
-            <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[400px]">
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg blur-xl opacity-50 animate-pulse"></div>
-              <div className="relative p-1 overflow-hidden border-4 border-cyan-400 rounded-lg shadow-lg bg-indigo-950">
-                <PixelAvatar />
-              </div>
-            </div>
-          </div>
+          {phone && (
+            <ProjectPhoneCard project={phone} subtitle={subtitle(phone)} liveUrl={phoneLiveUrl} className="flex-1" delay={0.1} />
+          )}
         </div>
 
-        <div className="grid grid-cols-1 gap-4 mt-16 sm:gap-6 sm:mt-20 md:grid-cols-3 md:mt-24">
-          {/* About Me Card */}
-          <Link href="/about" className="group h-full">
-            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-yellow-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-yellow-500/20">
-              <div>
-                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
-                  <h2 className="text-lg font-bold text-yellow-400 font-pixel sm:text-xl">
-                    About Me
-                  </h2>
-                </div>
-                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
-                  Learn about my journey, skills, and experience in the digital
-                  realm.
-                </p>
-              </div>
-              <div className="flex items-center mt-3 text-yellow-400 group-hover:translate-x-2 transition-transform sm:mt-4">
-                <span className="text-xs font-bold sm:text-sm">Explore</span>
-                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
-              </div>
-            </div>
-          </Link>
+        {/* Right column */}
+        <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-2 gap-5">
+            {SERVICES.map((s, i) => (
+              <Card
+                key={s.label}
+                glow={s.glow}
+                delay={0.05 * i}
+                className={`grid h-32 place-items-center px-4 text-center sm:h-36 ${s.wide ? "col-span-2" : ""}`}
+              >
+                <p className="text-lg font-medium tracking-tight text-neutral-100 sm:text-2xl">{s.label}</p>
+              </Card>
+            ))}
+          </div>
 
-          {/* Projects Card */}
-          <Link href="/projects" className="group h-full">
-            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-green-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-green-500/20">
-              <div>
-                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
-                  <Code className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
-                  <h2 className="text-lg font-bold text-green-400 font-pixel sm:text-xl">
-                    Projects
-                  </h2>
-                </div>
-                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
-                  Check out my latest work and the technologies I've mastered.
-                </p>
-              </div>
-              <div className="flex items-center mt-3 text-green-400 group-hover:translate-x-2 transition-transform sm:mt-4">
-                <span className="text-xs font-bold sm:text-sm">Discover</span>
-                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
-              </div>
-            </div>
-          </Link>
-
-          {/* Contact Card */}
-          <Link href="/contact" className="group h-full">
-            <div className="flex flex-col justify-between h-full p-4 transition-all border-2 border-pink-500 rounded-lg shadow-lg sm:p-6 bg-indigo-950/50 hover:bg-indigo-900/70 hover:shadow-pink-500/20">
-              <div>
-                <div className="flex items-center mb-3 space-x-2 sm:mb-4">
-                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
-                  <h2 className="text-lg font-bold text-pink-400 font-pixel sm:text-xl">
-                    Contact
-                  </h2>
-                </div>
-                <p className="text-sm text-gray-300 font-vt323 sm:text-base">
-                  Get in touch for collaborations, opportunities, or just to say
-                  hello.
-                </p>
-              </div>
-              <div className="flex items-center mt-3 text-pink-400 group-hover:translate-x-2 transition-transform sm:mt-4">
-                <span className="text-xs font-bold sm:text-sm">Connect</span>
-                <ChevronRight className="w-3 h-3 ml-1 sm:w-4 sm:h-4" />
-              </div>
-            </div>
-          </Link>
+          {stackTop && <ProjectStackCard project={stackTop} subtitle={subtitle(stackTop)} delay={0.1} />}
+          {stackBottom && (
+            <ProjectStackCard project={stackBottom} subtitle={subtitle(stackBottom)} className="flex-1" delay={0.15} />
+          )}
         </div>
       </div>
-    </main>
-  );
+    </div>
+  )
 }

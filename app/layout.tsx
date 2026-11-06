@@ -1,21 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
-import { PageTransitionProvider } from "@/components/page-transition"
-
-// 👇 import your custom toast system
+import SiteFooter from "@/components/site-footer"
+import SiteChrome from "@/components/site-chrome"
 import { ToastProvider } from "@/components/ui/use-toast"
 import Toasts from "@/components/ui/toasts"
 
-
-const inter = Inter({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "Retro Portfolio | Web Developer",
-  description: "A retro-themed portfolio showcasing web development projects and skills",
+  title: "Nnabugwu Solomon | Frontend Developer",
+  description: "Portfolio of Nnabugwu Solomon, a frontend developer building modern web experiences.",
 }
 
 export default function RootLayout({
@@ -24,21 +22,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-      </head>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <PageTransitionProvider>
-            <ToastProvider>
-              <Navigation />
-              {children}
-              <Toasts /> {/* 👈 Renders all active toasts */}
-            </ToastProvider>
-          </PageTransitionProvider>
-        </ThemeProvider>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+      <body className="font-sans">
+        <ToastProvider>
+          <SiteChrome header={<Navigation />} footer={<SiteFooter />}>
+            {children}
+          </SiteChrome>
+          <Toasts />
+        </ToastProvider>
       </body>
     </html>
   )
