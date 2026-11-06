@@ -490,12 +490,12 @@ export default function WorkspacePage() {
       {/* header */}
       <Panel className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-4">
-          <Link href="/admin" aria-label="Back to projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-neutral-300 hover:text-white">
+          <Link href="/admin" aria-label="Back to projects" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-neutral-300 hover:text-fg">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="truncate text-xl font-semibold text-white sm:text-2xl">{ws.title}</h1>
+              <h1 className="truncate text-xl font-semibold text-fg sm:text-2xl">{ws.title}</h1>
               <Badge tone={ws.status === "published" ? "green" : "amber"}>{ws.status}</Badge>
               {ws.isPrivateRepo && (
                 <Badge>
@@ -573,7 +573,7 @@ export default function WorkspacePage() {
                 )}
                 {busy === "image" && (
                   <div className="absolute inset-0 grid place-items-center bg-black/60">
-                    <Spinner className="text-white" />
+                    <Spinner className="text-fg" />
                   </div>
                 )}
               </div>
@@ -640,7 +640,7 @@ export default function WorkspacePage() {
                     )}
                     {busy === "mobile" && (
                       <div className="absolute inset-0 grid place-items-center bg-black/60">
-                        <Spinner className="h-4 w-4 text-white" />
+                        <Spinner className="h-4 w-4 text-fg" />
                       </div>
                     )}
                     <div className="absolute left-1/2 top-1 h-2.5 w-[38%] -translate-x-1/2 rounded-full bg-black" />
@@ -805,7 +805,7 @@ export default function WorkspacePage() {
                 <div className="rounded-xl border border-line p-3">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="text-xs text-muted">{candidates.length ? "Pick a URL" : "No candidates found"}</span>
-                    <button aria-label="Close" onClick={() => setCandidates(null)} className="text-neutral-500 hover:text-white">
+                    <button aria-label="Close" onClick={() => setCandidates(null)} className="text-neutral-500 hover:text-fg">
                       <X className="h-4 w-4" />
                     </button>
                   </div>
@@ -833,7 +833,7 @@ export default function WorkspacePage() {
             <Field label="GitHub repository" htmlFor="codeUrl" aside={locked("code_url")}>
               <TextInput id="codeUrl" type="url" placeholder="https://github.com/owner/repo" value={draft.codeUrl} onChange={(e) => set("codeUrl", e.target.value)} />
               <label className="flex items-center gap-2 text-sm text-neutral-300">
-                <input type="checkbox" checked={draft.showCode} onChange={(e) => set("showCode", e.target.checked)} className="accent-[#e8472b]" />
+                <input type="checkbox" checked={draft.showCode} onChange={(e) => set("showCode", e.target.checked)} className="accent-[#c87545]" />
                 Show &quot;View source&quot; link
                 {ws.isPrivateRepo && <span className="text-xs text-amber-300">(private repo: visitors can&apos;t open it)</span>}
               </label>
@@ -874,7 +874,7 @@ export default function WorkspacePage() {
                 type="checkbox"
                 checked={draft.featured}
                 onChange={(e) => set("featured", e.target.checked)}
-                className="mt-0.5 accent-[#e8472b]"
+                className="mt-0.5 accent-[#c87545]"
               />
               <span>
                 <span className="block text-neutral-100">Feature on the home page</span>

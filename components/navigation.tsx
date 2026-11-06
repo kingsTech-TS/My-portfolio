@@ -25,7 +25,7 @@ function DotLogo() {
   return (
     <svg viewBox="0 0 64 64" className="h-9 w-9 sm:h-10 sm:w-10" aria-hidden>
       {DOTS.map((dot, i) => (
-        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#e8472b" opacity={1 - dot.d * 0.12} />
+        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#c87545" opacity={1 - dot.d * 0.12} />
       ))}
     </svg>
   )
@@ -66,13 +66,13 @@ export default function Navigation() {
               href={link.path}
               className={cn(
                 "relative rounded-full px-3 py-2 text-xs font-medium uppercase tracking-[0.14em] transition-colors sm:px-6 sm:text-sm",
-                active ? "text-white" : "text-neutral-400 hover:text-white",
+                active ? "text-fg" : "text-neutral-400 hover:text-fg",
               )}
             >
               {active && (
                 <motion.span
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-full bg-brand shadow-[0_8px_24px_-6px_rgba(232,71,43,0.8)]"
+                  className="absolute inset-0 rounded-full bg-brand shadow-[0_8px_24px_-6px_rgba(200,117,69,0.8)]"
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}

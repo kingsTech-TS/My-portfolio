@@ -85,7 +85,7 @@ export function ArrowLink({ href, label }: { href: string; label: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_0_0_5px_rgba(232,71,43,0.15),0_10px_30px_-8px_rgba(232,71,43,0.8)] transition-all duration-300 hover:scale-110 hover:bg-brand-hi group-hover:rotate-45"
+      className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand text-fg shadow-[0_0_0_5px_rgba(200,117,69,0.15),0_10px_30px_-8px_rgba(200,117,69,0.8)] transition-all duration-300 hover:scale-110 hover:bg-brand-hi group-hover:rotate-45"
     >
       <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
     </a>
@@ -95,7 +95,7 @@ export function ArrowLink({ href, label }: { href: string; label: string }) {
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="flex items-center gap-3 text-sm font-medium uppercase tracking-[0.18em] text-neutral-400">
-      <span className="h-1.5 w-1.5 rounded-full bg-brand shadow-[0_0_10px_2px_rgba(232,71,43,0.6)]" />
+      <span className="h-1.5 w-1.5 rounded-full bg-brand shadow-[0_0_10px_2px_rgba(200,117,69,0.6)]" />
       {children}
     </h2>
   )
@@ -105,7 +105,7 @@ function ProjectHeader({ project, subtitle }: { project: Project; subtitle?: str
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
-        <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">{project.title}</h3>
+        <h3 className="text-xl font-semibold tracking-tight text-fg sm:text-2xl">{project.title}</h3>
         <p className="mt-1.5 text-sm text-muted sm:text-base">{subtitle ?? project.category}</p>
       </div>
       {project.hasLiveDemo !== false && project.demoUrl && (
@@ -191,7 +191,7 @@ function PhoneScreenshot({ project }: { project: Project }) {
 /** Phone status bar with the notch: the screen content starts below it, like a real phone. */
 function PhoneStatusBar() {
   return (
-    <div className="relative z-10 flex h-9 shrink-0 items-center justify-between bg-black px-6 text-[11px] font-semibold text-white">
+    <div className="relative z-10 flex h-9 shrink-0 items-center justify-between bg-black px-6 text-[11px] font-semibold text-fg">
       <span>9:41</span>
       <div className="absolute left-1/2 top-1.5 h-6 w-[36%] -translate-x-1/2 rounded-full bg-neutral-950 ring-1 ring-white/5" />
       <span className="flex items-center gap-1" aria-hidden>

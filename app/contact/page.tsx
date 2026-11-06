@@ -15,7 +15,7 @@ const LINKS = [
 ]
 
 const field =
-  "w-full rounded-xl border border-line bg-ink/60 px-4 py-3 text-base text-white placeholder:text-neutral-500 outline-none transition-colors focus:border-brand"
+  "w-full rounded-xl border border-line bg-ink/60 px-4 py-3 text-base text-fg placeholder:text-neutral-500 outline-none transition-colors focus:border-brand"
 
 export default function ContactPage() {
   const { toast } = useToast()
@@ -55,7 +55,7 @@ export default function ContactPage() {
           <SectionLabel>Send a message</SectionLabel>
           {isSubmitted ? (
             <div className="mt-10">
-              <p className="text-xl text-white">Message sent!</p>
+              <p className="text-xl text-fg">Message sent!</p>
               <p className="mt-2 text-neutral-300">Thanks for reaching out. I&rsquo;ll get back to you soon.</p>
               <button
                 onClick={() => setIsSubmitted(false)}
@@ -87,7 +87,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-stretch overflow-hidden rounded-full bg-brand font-medium text-white shadow-[0_8px_28px_-6px_rgba(232,71,43,0.8)] transition-colors hover:bg-brand-hi disabled:opacity-60"
+                className="inline-flex items-stretch overflow-hidden rounded-full bg-brand font-medium text-fg shadow-[0_8px_28px_-6px_rgba(200,117,69,0.8)] transition-colors hover:bg-brand-hi disabled:opacity-60"
               >
                 <span className="py-2.5 pl-5 pr-3">{isSubmitting ? "Sending..." : "Send message"}</span>
                 <span className="grid place-items-center pr-4">
@@ -121,7 +121,7 @@ export default function ContactPage() {
               href={PROFILE.cv}
               download
               onClick={() => toast({ title: "Download started", description: "Your CV is downloading..." })}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-ink/60 px-4 py-2.5 text-neutral-200 transition-colors hover:border-brand hover:text-white"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-ink/60 px-4 py-2.5 text-neutral-200 transition-colors hover:border-brand hover:text-fg"
             >
               <Download className="h-4 w-4" /> Download CV
             </a>

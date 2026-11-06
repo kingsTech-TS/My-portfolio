@@ -4,13 +4,29 @@
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --color-ink: #09090a;
-  --color-card: #151516;
-  --color-card-hi: #1d1d1f;
-  --color-line: #262628;
-  --color-muted: #8f8f94;
-  --color-brand: #e8472b;
-  --color-brand-hi: #ff5a3c;
+  /* Palette: background #0B0A09 · surface #191512 · accent #C87545 · text #F1EAE3 */
+  --color-fg: #f1eae3;
+
+  /* Warm the neutral scale so existing grey text/borders match the palette */
+  --color-neutral-50: #f8f4f0;
+  --color-neutral-100: #f1eae3;
+  --color-neutral-200: #e2d9cf;
+  --color-neutral-300: #c9bdb1;
+  --color-neutral-400: #a39587;
+  --color-neutral-500: #7d7064;
+  --color-neutral-600: #5c5249;
+  --color-neutral-700: #3f3832;
+  --color-neutral-800: #2a2420;
+  --color-neutral-900: #1c1815;
+  --color-neutral-950: #110e0c;
+
+  --color-ink: #0b0a09;
+  --color-card: #191512;
+  --color-card-hi: #221d19;
+  --color-line: #2e2722;
+  --color-muted: #a39587;
+  --color-brand: #c87545;
+  --color-brand-hi: #d98a5c;
 
   --animate-marquee: marquee 40s linear infinite;
 
@@ -29,10 +45,10 @@ body {
   min-height: 100vh;
   background-color: var(--color-ink);
   background-image:
-    radial-gradient(60rem 40rem at 85% -10%, rgba(232, 71, 43, 0.14), transparent 60%),
-    radial-gradient(50rem 40rem at -10% 110%, rgba(232, 71, 43, 0.08), transparent 60%);
+    radial-gradient(60rem 40rem at 85% -10%, rgba(200, 117, 69, 0.14), transparent 60%),
+    radial-gradient(50rem 40rem at -10% 110%, rgba(200, 117, 69, 0.08), transparent 60%);
   background-attachment: fixed;
-  color: #f2f2f2;
+  color: #f1eae3;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -64,13 +80,13 @@ body::after {
 
 /* Orange corner glows used on the bento cards */
 .glow-tr {
-  background-image: radial-gradient(120% 140% at 100% 0%, rgba(232, 71, 43, 0.5) 0%, rgba(232, 71, 43, 0.1) 35%, transparent 60%);
+  background-image: radial-gradient(120% 140% at 100% 0%, rgba(200, 117, 69, 0.5) 0%, rgba(200, 117, 69, 0.1) 35%, transparent 60%);
 }
 .glow-r {
-  background-image: radial-gradient(80% 160% at 100% 50%, rgba(232, 71, 43, 0.45) 0%, rgba(232, 71, 43, 0.08) 35%, transparent 60%);
+  background-image: radial-gradient(80% 160% at 100% 50%, rgba(200, 117, 69, 0.45) 0%, rgba(200, 117, 69, 0.08) 35%, transparent 60%);
 }
 .glow-bl {
-  background-image: radial-gradient(120% 160% at 0% 100%, rgba(232, 71, 43, 0.5) 0%, rgba(232, 71, 43, 0.1) 35%, transparent 60%);
+  background-image: radial-gradient(120% 160% at 0% 100%, rgba(200, 117, 69, 0.5) 0%, rgba(200, 117, 69, 0.1) 35%, transparent 60%);
 }
 
 /* Cursor-following spotlight + border highlight */
@@ -90,7 +106,7 @@ body::after {
 .spotlight::before {
   z-index: 1;
   padding: 1px;
-  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(232, 71, 43, 0.9), transparent 50%);
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(200, 117, 69, 0.9), transparent 50%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

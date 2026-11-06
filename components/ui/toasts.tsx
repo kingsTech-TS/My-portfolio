@@ -17,10 +17,10 @@ export default function Toasts() {
         >
           <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-brand" />
           <div className="flex-1">
-            {toast.title && <p className="font-medium text-white">{toast.title}</p>}
+            {toast.title && <p className="font-medium text-fg">{toast.title}</p>}
             {toast.description && <p className="text-muted">{toast.description}</p>}
           </div>
-          <button onClick={() => removeToast(toast.id)} aria-label="Dismiss" className="text-muted hover:text-white">
+          <button onClick={() => removeToast(toast.id)} aria-label="Dismiss" className="text-muted hover:text-fg">
             <X className="h-4 w-4" />
           </button>
         </div>

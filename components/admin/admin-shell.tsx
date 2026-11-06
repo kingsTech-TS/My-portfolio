@@ -46,7 +46,7 @@ function DotLogo() {
   return (
     <svg viewBox="0 0 64 64" className="h-8 w-8" aria-hidden>
       {dots.map((dot, i) => (
-        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#e8472b" opacity={1 - dot.d * 0.12} />
+        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#c87545" opacity={1 - dot.d * 0.12} />
       ))}
     </svg>
   )
@@ -59,7 +59,7 @@ function Sidebar({ me, onNavigate, onSignOut }: { me: Me | null; onNavigate?: ()
       <Link href="/admin" onClick={onNavigate} className="flex items-center gap-3 px-5 py-5">
         <DotLogo />
         <div className="leading-tight">
-          <p className="text-sm font-semibold text-white">Portfolio</p>
+          <p className="text-sm font-semibold text-fg">Portfolio</p>
           <p className="text-xs text-muted">Admin</p>
         </div>
       </Link>
@@ -76,7 +76,7 @@ function Sidebar({ me, onNavigate, onSignOut }: { me: Me | null; onNavigate?: ()
               aria-current={active ? "page" : undefined}
               className={cn(
                 "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors",
-                active ? "bg-white/[0.06] text-white" : "text-neutral-400 hover:bg-white/[0.03] hover:text-white",
+                active ? "bg-white/[0.06] text-fg" : "text-neutral-400 hover:bg-white/[0.03] hover:text-fg",
               )}
             >
               {active && <span className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full bg-brand" />}
@@ -91,7 +91,7 @@ function Sidebar({ me, onNavigate, onSignOut }: { me: Me | null; onNavigate?: ()
           href="/projects"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-neutral-400 transition-colors hover:bg-white/[0.03] hover:text-white"
+          className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-neutral-400 transition-colors hover:bg-white/[0.03] hover:text-fg"
         >
           <ExternalLink className="h-4 w-4 text-neutral-500 group-hover:text-neutral-300" />
           View live portfolio
@@ -109,7 +109,7 @@ function Sidebar({ me, onNavigate, onSignOut }: { me: Me | null; onNavigate?: ()
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm text-white">{me?.github.connected ? `@${me.github.login}` : "GitHub"}</p>
+              <p className="truncate text-sm text-fg">{me?.github.connected ? `@${me.github.login}` : "GitHub"}</p>
               <p className="flex items-center gap-1.5 text-xs text-muted">
                 <span className={cn("h-1.5 w-1.5 rounded-full", me?.github.connected ? "bg-emerald-400" : "bg-neutral-600")} />
                 {me === null ? "Checking…" : me.github.connected ? "Connected" : "Not connected"}
@@ -119,7 +119,7 @@ function Sidebar({ me, onNavigate, onSignOut }: { me: Me | null; onNavigate?: ()
         </div>
         <button
           onClick={onSignOut}
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-neutral-400 transition-colors hover:bg-white/[0.03] hover:text-white"
+          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-neutral-400 transition-colors hover:bg-white/[0.03] hover:text-fg"
         >
           <LogOut className="h-4 w-4" /> Sign out
         </button>
@@ -191,7 +191,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               <button
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
-                className="absolute right-3 top-5 p-1.5 text-neutral-400 hover:text-white"
+                className="absolute right-3 top-5 p-1.5 text-neutral-400 hover:text-fg"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -212,20 +212,20 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             </button>
             <div className="min-w-0">
               <p className="text-[11px] uppercase tracking-[0.14em] text-neutral-500">{section}</p>
-              <p className="truncate text-sm font-medium text-white">{title}</p>
+              <p className="truncate text-sm font-medium text-fg">{title}</p>
             </div>
             <div className="ml-auto flex items-center gap-3">
               <a
                 href="/projects"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs text-neutral-300 hover:text-white sm:inline-flex"
+                className="hidden items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs text-neutral-300 hover:text-fg sm:inline-flex"
               >
                 View site <ExternalLink className="h-3 w-3" />
               </a>
               <div
                 title={me?.email}
-                className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-brand to-orange-700 text-sm font-semibold text-white"
+                className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-brand to-orange-700 text-sm font-semibold text-fg"
               >
                 {initial}
               </div>

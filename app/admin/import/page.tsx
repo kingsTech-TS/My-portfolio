@@ -60,9 +60,9 @@ function PreviewDrawer({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Import preview</p>
-            <h2 className="mt-2 text-xl font-semibold text-white">{repo.fullName}</h2>
+            <h2 className="mt-2 text-xl font-semibold text-fg">{repo.fullName}</h2>
           </div>
-          <button onClick={onClose} aria-label="Close" className="p-1 text-neutral-400 hover:text-white">
+          <button onClick={onClose} aria-label="Close" className="p-1 text-neutral-400 hover:text-fg">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -79,7 +79,7 @@ function PreviewDrawer({
           <div className="mt-6 flex flex-col gap-6 text-sm">
             <section>
               <h3 className="text-xs uppercase tracking-[0.14em] text-neutral-400">Title</h3>
-              <p className="mt-1.5 text-white">{data.title}</p>
+              <p className="mt-1.5 text-fg">{data.title}</p>
             </section>
             <section>
               <h3 className="text-xs uppercase tracking-[0.14em] text-neutral-400">
@@ -89,7 +89,7 @@ function PreviewDrawer({
             </section>
             <section>
               <h3 className="text-xs uppercase tracking-[0.14em] text-neutral-400">Category</h3>
-              <p className="mt-1.5 text-white">{data.category}</p>
+              <p className="mt-1.5 text-fg">{data.category}</p>
             </section>
             <section>
               <h3 className="text-xs uppercase tracking-[0.14em] text-neutral-400">Live URL</h3>
@@ -98,7 +98,7 @@ function PreviewDrawer({
                 {data.liveUrlCandidates.map((c) => (
                   <li key={c.url} className="flex items-center gap-2">
                     {c.ok ? <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" /> : <XCircle className="h-4 w-4 shrink-0 text-red-400" />}
-                    <a href={c.url} target="_blank" rel="noopener noreferrer" className={cn("truncate hover:underline", c.url === data.demoUrl ? "text-white" : "text-muted")}>
+                    <a href={c.url} target="_blank" rel="noopener noreferrer" className={cn("truncate hover:underline", c.url === data.demoUrl ? "text-fg" : "text-muted")}>
                       {c.url}
                     </a>
                     <span className="shrink-0 text-xs text-muted">{c.source}</span>
@@ -266,7 +266,7 @@ export default function ImportPage() {
             <option value="full_name">Name</option>
           </select>
           <label className="flex items-center gap-2 text-sm text-neutral-300">
-            <input type="checkbox" checked={includeForks} onChange={(e) => { setIncludeForks(e.target.checked); setPage(1) }} className="accent-[#e8472b]" />
+            <input type="checkbox" checked={includeForks} onChange={(e) => { setIncludeForks(e.target.checked); setPage(1) }} className="accent-[#c87545]" />
             Forks
           </label>
           <Btn variant="ghost" size="sm" onClick={() => load(true)} aria-label="Refresh from GitHub">
@@ -307,11 +307,11 @@ export default function ImportPage() {
                   else next.delete(r.fullName)
                   setSelected(next)
                 }}
-                className="accent-[#e8472b]"
+                className="accent-[#c87545]"
               />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <a href={r.htmlUrl} target="_blank" rel="noopener noreferrer" className="truncate font-medium text-white hover:text-brand">
+                  <a href={r.htmlUrl} target="_blank" rel="noopener noreferrer" className="truncate font-medium text-fg hover:text-brand">
                     {r.fullName}
                   </a>
                   {r.private && (

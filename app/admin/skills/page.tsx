@@ -84,7 +84,7 @@ export default function SkillsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Skills</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-fg sm:text-3xl">Skills</h1>
         <p className="mt-1 text-sm text-muted">Shown in the scrolling strip on the home page and grouped on the About page.</p>
       </div>
 
@@ -133,7 +133,7 @@ export default function SkillsPage() {
           {groups.map(([g, items]) => (
             <section key={g} className="rounded-2xl border border-line bg-card p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-medium text-white">{g}</h2>
+                <h2 className="text-sm font-medium text-fg">{g}</h2>
                 <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-neutral-400">{items.length}</span>
               </div>
               {items.length === 0 ? (

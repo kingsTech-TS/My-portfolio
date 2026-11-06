@@ -37,7 +37,7 @@ export function SkillBadge({ name, color }: SkillBadgeProps) {
     pink: "bg-pink-900/50 text-pink-400 border-pink-500",
     purple: "bg-purple-900/50 text-purple-400 border-purple-500",
     red: "bg-red-900/50 text-red-400 border-red-500",
-    white: "bg-gray-900/50 text-white border-gray-500",
+    white: "bg-gray-900/50 text-fg border-gray-500",
     rose: "bg-rose-900/50 text-rose-400 border-rose-500",
     silver: "bg-gray-900/50 text-gray-400 border-gray-500",
     indigo: "bg-indigo-900/50 text-indigo-400 border-indigo-500",

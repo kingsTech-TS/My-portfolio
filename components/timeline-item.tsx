@@ -30,7 +30,7 @@ export function TimelineItem({ icon, date, title, company, description, color }:
         <span className={`text-${color}-400`}>{date}</span>
       </div>
 
-      <h3 className="text-base font-bold font-pixel text-white sm:text-lg">{title}</h3>
+      <h3 className="text-base font-bold font-pixel text-fg sm:text-lg">{title}</h3>
       <div className="mb-1 text-xs font-vt323 text-gray-400 sm:text-sm sm:mb-2">{company}</div>
 
       <p className="text-sm text-gray-300 font-vt323 sm:text-base">{description}</p>

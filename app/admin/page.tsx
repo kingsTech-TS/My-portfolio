@@ -64,7 +64,7 @@ function StatCard({
           <Icon className="h-4 w-4" />
         </span>
       </div>
-      <p className="mt-4 text-3xl font-semibold tracking-tight text-white">{value ?? <span className="text-neutral-600">–</span>}</p>
+      <p className="mt-4 text-3xl font-semibold tracking-tight text-fg">{value ?? <span className="text-neutral-600">–</span>}</p>
       {hint && <p className="mt-1 text-xs text-muted">{hint}</p>}
     </div>
   )
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
       {/* page header */}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Projects</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-fg sm:text-3xl">Projects</h1>
           <p className="mt-1 text-sm text-muted">Manage what appears on your portfolio. Drag order here is the order on the site.</p>
         </div>
         {connected ? (
@@ -183,10 +183,10 @@ export default function AdminDashboard() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand/20">
-                <Github className="h-5 w-5 text-white" />
+                <Github className="h-5 w-5 text-fg" />
               </span>
               <div>
-                <p className="font-medium text-white">Connect your GitHub account</p>
+                <p className="font-medium text-fg">Connect your GitHub account</p>
                 <p className="text-sm text-neutral-300">See all your repositories and import them with one click.</p>
               </div>
             </div>
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                 onClick={() => setFilter(f)}
                 className={cn(
                   "rounded-lg px-3 py-1.5 text-sm transition-colors",
-                  filter === f ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white",
+                  filter === f ? "bg-white/10 text-fg" : "text-neutral-400 hover:text-fg",
                 )}
               >
                 {f === "all" ? "All" : f === "published" ? "Published" : "Drafts"}
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search projects, repos, tags"
               aria-label="Search projects"
-              className="h-9 w-full rounded-xl border border-line bg-ink/60 pl-9 pr-3 text-sm text-white placeholder:text-neutral-500 focus:border-brand/60 focus:outline-none focus:ring-2 focus:ring-brand/20"
+              className="h-9 w-full rounded-xl border border-line bg-ink/60 pl-9 pr-3 text-sm text-fg placeholder:text-neutral-500 focus:border-brand/60 focus:outline-none focus:ring-2 focus:ring-brand/20"
             />
           </div>
         </div>
@@ -277,10 +277,10 @@ export default function AdminDashboard() {
                     {canReorder && (
                       <td className="hidden py-3 pl-4 align-middle md:table-cell">
                         <div className="flex flex-col opacity-40 transition-opacity group-hover:opacity-100">
-                          <button aria-label={`Move ${p.title} up`} onClick={() => move(index, -1)} disabled={index === 0} className="rounded p-0.5 text-neutral-400 hover:text-white disabled:opacity-30">
+                          <button aria-label={`Move ${p.title} up`} onClick={() => move(index, -1)} disabled={index === 0} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
                             <ArrowUp className="h-3.5 w-3.5" />
                           </button>
-                          <button aria-label={`Move ${p.title} down`} onClick={() => move(index, 1)} disabled={index === items.length - 1} className="rounded p-0.5 text-neutral-400 hover:text-white disabled:opacity-30">
+                          <button aria-label={`Move ${p.title} down`} onClick={() => move(index, 1)} disabled={index === items.length - 1} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
                             <ArrowDown className="h-3.5 w-3.5" />
                           </button>
                         </div>
@@ -298,7 +298,7 @@ export default function AdminDashboard() {
                           )}
                         </div>
                         <div className="min-w-0">
-                          <p className="flex items-center gap-1.5 truncate font-medium text-white group-hover:text-brand-hi">
+                          <p className="flex items-center gap-1.5 truncate font-medium text-fg group-hover:text-brand-hi">
                             {p.title}
                             {p.isPrivateRepo && <Lock className="h-3 w-3 shrink-0 text-neutral-500" aria-label="Private repo" />}
                             {p.featured && <Star className="h-3 w-3 shrink-0 fill-amber-300 text-amber-300" aria-label="Featured on home page" />}
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
                     <td className="hidden py-3 pr-4 text-neutral-300 lg:table-cell">{p.category}</td>
                     <td className="hidden whitespace-nowrap py-3 pr-4 text-xs text-muted sm:table-cell">{timeAgo(p.updatedAt)}</td>
                     <td className="py-3 pr-4 text-right">
-                      <Link href={href} aria-label={`Open ${p.title}`} className="inline-grid h-8 w-8 place-items-center rounded-lg text-neutral-500 hover:bg-white/5 hover:text-white">
+                      <Link href={href} aria-label={`Open ${p.title}`} className="inline-grid h-8 w-8 place-items-center rounded-lg text-neutral-500 hover:bg-white/5 hover:text-fg">
                         <ChevronRight className="h-4 w-4" />
                       </Link>
                     </td>

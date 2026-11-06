@@ -26,9 +26,9 @@ export function btnClass(variant: BtnVariant = "secondary", size: "sm" | "md" = 
   return cn(
     "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 disabled:cursor-not-allowed disabled:opacity-50",
     size === "sm" ? "h-8 px-3 text-xs" : "h-10 px-5 text-sm",
-    variant === "primary" && "bg-brand text-white hover:bg-brand-hi",
-    variant === "secondary" && "border border-line bg-ink/60 text-neutral-200 hover:border-neutral-500 hover:text-white",
-    variant === "ghost" && "text-neutral-400 hover:bg-white/5 hover:text-white",
+    variant === "primary" && "bg-brand text-fg hover:bg-brand-hi",
+    variant === "secondary" && "border border-line bg-ink/60 text-neutral-200 hover:border-neutral-500 hover:text-fg",
+    variant === "ghost" && "text-neutral-400 hover:bg-white/5 hover:text-fg",
     variant === "danger" && "border border-red-500/40 text-red-300 hover:bg-red-500/10",
     className,
   )
@@ -52,7 +52,7 @@ export const Btn = forwardRef<
 })
 
 export const inputClass =
-  "w-full rounded-xl border border-line bg-ink/70 px-3.5 py-2.5 text-sm text-white placeholder:text-neutral-500 focus:border-brand/70 focus:outline-none focus:ring-2 focus:ring-brand/20"
+  "w-full rounded-xl border border-line bg-ink/70 px-3.5 py-2.5 text-sm text-fg placeholder:text-neutral-500 focus:border-brand/70 focus:outline-none focus:ring-2 focus:ring-brand/20"
 
 export const TextInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   function TextInput({ className, ...props }, ref) {

@@ -127,7 +127,7 @@ export default function ProjectCard({ title, description, image, tags, demoUrl, 
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button variant="outline" className="border-white/20 bg-black/50 text-white hover:bg-white/10 backdrop-blur-sm">
+            <Button variant="outline" className="border-white/20 bg-black/50 text-fg hover:bg-white/10 backdrop-blur-sm">
               <Github className="mr-2 h-4 w-4" /> Code
             </Button>
           </motion.a>

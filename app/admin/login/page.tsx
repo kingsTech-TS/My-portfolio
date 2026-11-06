@@ -23,7 +23,7 @@ function DotLogo() {
   return (
     <svg viewBox="0 0 64 64" className="h-10 w-10" aria-hidden>
       {dots.map((dot, i) => (
-        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#e8472b" opacity={1 - dot.d * 0.12} />
+        <circle key={i} cx={dot.x} cy={dot.y} r={3} fill="#c87545" opacity={1 - dot.d * 0.12} />
       ))}
     </svg>
   )
@@ -59,7 +59,7 @@ export default function AdminLoginPage() {
         <div className="relative flex items-center gap-3">
           <DotLogo />
           <div className="leading-tight">
-            <p className="font-semibold text-white">Portfolio</p>
+            <p className="font-semibold text-fg">Portfolio</p>
             <p className="text-sm text-muted">Admin</p>
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
                   <Icon className="h-4 w-4 text-brand-hi" />
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-white">{title}</p>
+                  <p className="text-sm font-medium text-fg">{title}</p>
                   <p className="text-sm text-muted">{text}</p>
                 </div>
               </li>
@@ -89,9 +89,9 @@ export default function AdminLoginPage() {
         <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <DotLogo />
-            <p className="font-semibold text-white">Portfolio Admin</p>
+            <p className="font-semibold text-fg">Portfolio Admin</p>
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight text-white">Welcome back</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-fg">Welcome back</h1>
           <p className="mt-1.5 text-sm text-muted">Sign in to manage your projects.</p>
 
           <form onSubmit={submit} className="mt-8 flex flex-col gap-5">

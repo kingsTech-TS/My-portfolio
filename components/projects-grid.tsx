@@ -29,8 +29,8 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
               className={cn(
                 "rounded-full border px-4 py-1.5 text-sm transition-colors",
                 filter === cat
-                  ? "border-brand bg-brand text-white"
-                  : "border-line bg-ink/60 text-neutral-300 hover:border-neutral-500 hover:text-white",
+                  ? "border-brand bg-brand text-fg"
+                  : "border-line bg-ink/60 text-neutral-300 hover:border-neutral-500 hover:text-fg",
               )}
             >
               {cat}

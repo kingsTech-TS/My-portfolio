@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import Avatar from "@/components/avatar"
 import Link from "next/link"
 import { ArrowRight, Check, Copy } from "lucide-react"
 import { useState } from "react"
@@ -48,7 +48,7 @@ export default function HeroCard({ projectCount }: { projectCount: number }) {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/contact"
-              className="group/btn inline-flex items-center gap-2 rounded-full bg-brand py-2.5 pl-5 pr-2.5 text-sm font-medium text-white shadow-[0_10px_30px_-8px_rgba(232,71,43,0.9)] transition-all hover:bg-brand-hi sm:text-base"
+              className="group/btn inline-flex items-center gap-2 rounded-full bg-brand py-2.5 pl-5 pr-2.5 text-sm font-medium text-fg shadow-[0_10px_30px_-8px_rgba(200,117,69,0.9)] transition-all hover:bg-brand-hi sm:text-base"
             >
               Hire me
               <span className="grid h-7 w-7 place-items-center rounded-full bg-black/20 transition-transform group-hover/btn:translate-x-0.5">
@@ -59,7 +59,7 @@ export default function HeroCard({ projectCount }: { projectCount: number }) {
             <button
               type="button"
               onClick={copyEmail}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-2.5 pl-5 pr-2.5 text-sm text-neutral-200 backdrop-blur transition-colors hover:border-white/25 hover:text-white sm:text-base"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-2.5 pl-5 pr-2.5 text-sm text-neutral-200 backdrop-blur transition-colors hover:border-white/25 hover:text-fg sm:text-base"
             >
               {copied ? "Copied!" : "Copy Email"}
               <span className="grid h-7 w-7 place-items-center rounded-full bg-white/5">
@@ -70,11 +70,9 @@ export default function HeroCard({ projectCount }: { projectCount: number }) {
         </div>
 
         <div className="relative">
-          <div className="absolute -inset-4 rounded-full bg-[conic-gradient(from_180deg,#e8472b,transparent_40%,#e8472b_70%,transparent)] opacity-40 blur-2xl" />
+          <div className="absolute -inset-4 rounded-full bg-[conic-gradient(from_180deg,#c87545,transparent_40%,#c87545_70%,transparent)] opacity-40 blur-2xl" />
           <div className="relative rounded-full border border-white/10 bg-ink/60 p-2.5 backdrop-blur">
-            <div className="relative h-32 w-32 overflow-hidden rounded-full bg-white sm:h-44 sm:w-44">
-              <Image src={PROFILE.avatar} alt={PROFILE.name} fill sizes="176px" className="object-cover" priority />
-            </div>
+            <Avatar className="h-32 w-32 sm:h-44 sm:w-44" sizes="340px" priority />
           </div>
         </div>
       </div>
@@ -83,7 +81,7 @@ export default function HeroCard({ projectCount }: { projectCount: number }) {
         {STATS.map((s) => (
           <div key={s.label} className="flex flex-col-reverse px-2 first:pl-0 sm:px-6">
             <dt className="mt-1 text-xs text-muted sm:text-sm">{s.label}</dt>
-            <dd className="text-xl font-semibold tracking-tight text-white sm:text-3xl">{s.value}</dd>
+            <dd className="text-xl font-semibold tracking-tight text-fg sm:text-3xl">{s.value}</dd>
           </div>
         ))}
       </dl>

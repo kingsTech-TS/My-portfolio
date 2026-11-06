@@ -54,7 +54,7 @@ export default async function Home() {
                   <div>
                     <p
                       className={`text-lg font-medium tracking-tight sm:text-xl ${
-                        i === 0 ? "text-brand" : "text-white group-hover/row:text-brand"
+                        i === 0 ? "text-brand" : "text-fg group-hover/row:text-brand"
                       } transition-colors`}
                     >
                       {job.title}

@@ -1,6 +1,6 @@
-import Image from "next/image"
+import Avatar from "@/components/avatar"
 import { Card, SectionLabel, AvailableBadge } from "@/components/bento"
-import { EXPERIENCE, INTERESTS, PROFILE } from "@/lib/data"
+import { EXPERIENCE, INTERESTS } from "@/lib/data"
 import { getSkills } from "@/lib/api"
 
 export const metadata = { title: "About | Nnabugwu Solomon" }
@@ -19,8 +19,8 @@ export default async function AboutPage() {
           Where design meets code<span className="text-brand">.</span>
         </h1>
         <div className="mt-10 grid gap-10 md:grid-cols-[auto_1fr] md:items-start">
-          <div className="relative h-40 w-40 overflow-hidden rounded-3xl border border-line sm:h-52 sm:w-52">
-            <Image src={PROFILE.avatar} alt={PROFILE.name} fill sizes="208px" className="object-cover" />
+          <div className="w-fit rounded-full border border-white/10 bg-ink/60 p-2.5">
+            <Avatar className="h-40 w-40 sm:h-52 sm:w-52" sizes="400px" />
           </div>
           <div className="max-w-2xl space-y-4 text-base leading-relaxed text-neutral-300 sm:text-lg">
             <p>
@@ -51,7 +51,7 @@ export default async function AboutPage() {
                   className={`absolute -left-[29px] top-2 h-2.5 w-2.5 rounded-full ${i === 0 ? "bg-brand" : "bg-neutral-500"}`}
                 />
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <p className={`text-lg sm:text-xl ${i === 0 ? "text-brand" : "text-white"}`}>{job.title}</p>
+                  <p className={`text-lg sm:text-xl ${i === 0 ? "text-brand" : "text-fg"}`}>{job.title}</p>
                   <p className="text-sm text-muted">{job.date}</p>
                 </div>
                 <p className="mt-1 text-sm text-neutral-400">{job.company}</p>
