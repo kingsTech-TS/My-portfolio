@@ -7,7 +7,14 @@ export default function SiteFooter() {
       glow="bl"
       className="mt-5 flex flex-col items-center gap-5 px-8 py-7 text-center sm:flex-row sm:justify-between sm:px-12 sm:text-left"
     >
-      <p className="text-xl text-neutral-200 sm:text-2xl">Portfolio {new Date().getFullYear()}</p>
+      <p className="text-xl text-neutral-200 sm:text-2xl">
+        <span className="font-mono">
+          <span className="text-brand">{"<"}</span>
+          {"king'sTech"}
+          <span className="text-brand">{"/>"}</span>
+        </span>{" "}
+        
+      </p>
       <ul className="flex gap-5 text-base sm:text-lg">
         {SOCIALS.map((s, i) => (
           <li key={s.name}>
