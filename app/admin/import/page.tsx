@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { CheckCircle2, ExternalLink, Eye, GitFork, Lock, RefreshCw, Search, Star, X, XCircle } from "lucide-react"
 import { api, ApiError, type Repo, type RepoPreview } from "@/lib/admin-api"
 import { useToast } from "@/components/ui/use-toast"
+import { useAdmin } from "@/components/admin/admin-shell"
 import { Badge, Btn, btnClass, inputClass, Panel, Spinner, TextInput } from "@/components/admin/ui"
 import { cn } from "@/components/lib/utils"
 
@@ -149,6 +150,7 @@ function PreviewDrawer({
 export default function ImportPage() {
   const router = useRouter()
   const { toast } = useToast()
+  const { refreshMe } = useAdmin()
   const [repos, setRepos] = useState<Repo[] | null>(null)
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
@@ -190,10 +192,13 @@ export default function ImportPage() {
         setTotal(res.total)
       } catch (e) {
         setRepos([])
-        setError(e instanceof ApiError && e.code === "github_not_connected" ? "not_connected" : (e as Error).message)
+        const notConnected = e instanceof ApiError && e.code === "github_not_connected"
+        setError(notConnected ? "not_connected" : (e as Error).message)
+        // the backend drops a revoked token — refresh so the dashboard shows "Connect GitHub"
+        if (notConnected) refreshMe()
       }
     },
-    [page, visibility, sort, includeForks, query],
+    [page, visibility, sort, includeForks, query, refreshMe],
   )
 
   useEffect(() => {
