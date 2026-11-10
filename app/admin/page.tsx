@@ -7,11 +7,13 @@ import Link from "next/link"
 import {
   ArrowDown,
   ArrowUp,
+  ArrowUpToLine,
   CheckCircle2,
   ChevronRight,
   FileClock,
   FolderKanban,
   Github,
+  GripVertical,
   ImageOff,
   Lock,
   Plus,
@@ -125,18 +127,28 @@ export default function AdminDashboard() {
     }
   }
 
-  async function move(index: number, dir: -1 | 1) {
-    if (!items) return
+  const [dragIndex, setDragIndex] = useState<number | null>(null)
+  const [overIndex, setOverIndex] = useState<number | null>(null)
+
+  /** Move the project at `from` to position `to` and save the new site order. */
+  async function reorder(from: number, to: number) {
+    if (!items || from === to || to < 0 || to >= items.length) return
     const next = [...items]
-    const target = index + dir
-    if (target < 0 || target >= next.length) return
-    ;[next[index], next[target]] = [next[target], next[index]]
+    const [moved] = next.splice(from, 1)
+    next.splice(to, 0, moved)
     setItems(next)
     try {
       await api("/api/admin/projects/reorder", { method: "PUT", json: { ids: next.map((p) => p.id) } })
-    } catch {
+      if (to === 0) toast({ title: `"${moved.title}" is now first` })
+    } catch (err) {
+      toast({ title: "Could not save order", description: (err as Error).message, variant: "destructive" })
       load()
     }
+  }
+
+  function endDrag() {
+    setDragIndex(null)
+    setOverIndex(null)
   }
 
   const stats = useMemo(() => {
@@ -164,7 +176,9 @@ export default function AdminDashboard() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-fg sm:text-3xl">Projects</h1>
-          <p className="mt-1 text-sm text-muted">Manage what appears on your portfolio. Drag order here is the order on the site.</p>
+          <p className="mt-1 text-sm text-muted">
+            Manage what appears on your portfolio. Drag rows (or use the arrows) to set the order on the site — #1 shows first.
+          </p>
         </div>
         {connected ? (
           <Link href="/admin/import" className={btnClass("primary")}>
@@ -239,6 +253,12 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {!canReorder && items && items.length > 1 && (
+          <p className="border-b border-line px-4 py-2 text-xs text-neutral-500">
+            Switch to <span className="text-neutral-300">All</span> and clear the search to reorder projects.
+          </p>
+        )}
+
         {items === null ? (
           <div className="grid place-items-center py-20">
             <Spinner />
@@ -259,7 +279,7 @@ export default function AdminDashboard() {
           <table className="w-full text-left text-sm">
             <thead className="hidden border-b border-line text-xs uppercase tracking-[0.08em] text-neutral-500 md:table-header-group">
               <tr>
-                {canReorder && <th className="w-12 py-3 pl-4 font-medium" aria-label="Order" />}
+                {canReorder && <th className="w-24 py-3 pl-4 font-medium">Order</th>}
                 <th className={cn("py-3 font-medium", !canReorder && "pl-4")}>Project</th>
                 <th className="py-3 font-medium">Status</th>
                 <th className="hidden py-3 font-medium xl:table-cell">Stack</th>
@@ -273,20 +293,59 @@ export default function AdminDashboard() {
                 const index = items.indexOf(p)
                 const href = `/admin/projects/${p.id}`
                 return (
-                  <tr key={p.id} className="group transition-colors hover:bg-white/[0.02]">
+                  <tr
+                    key={p.id}
+                    draggable={canReorder}
+                    onDragStart={(e) => {
+                      if (!canReorder) return
+                      setDragIndex(index)
+                      e.dataTransfer.effectAllowed = "move"
+                    }}
+                    onDragOver={(e) => {
+                      if (dragIndex === null) return
+                      e.preventDefault()
+                      if (overIndex !== index) setOverIndex(index)
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault()
+                      if (dragIndex !== null) reorder(dragIndex, index)
+                      endDrag()
+                    }}
+                    onDragEnd={endDrag}
+                    className={cn(
+                      "group transition-colors hover:bg-white/[0.02]",
+                      dragIndex === index && "opacity-40",
+                      overIndex === index && dragIndex !== null && dragIndex !== index && "bg-brand/10",
+                    )}
+                  >
                     {canReorder && (
-                      <td className="hidden py-3 pl-4 align-middle md:table-cell">
-                        <div className="flex flex-col opacity-40 transition-opacity group-hover:opacity-100">
-                          <button aria-label={`Move ${p.title} up`} onClick={() => move(index, -1)} disabled={index === 0} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
-                            <ArrowUp className="h-3.5 w-3.5" />
-                          </button>
-                          <button aria-label={`Move ${p.title} down`} onClick={() => move(index, 1)} disabled={index === items.length - 1} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
-                            <ArrowDown className="h-3.5 w-3.5" />
+                      <td className="py-3 pl-4 pr-2 align-middle">
+                        <div className="flex items-center gap-1">
+                          <GripVertical className="hidden h-4 w-4 cursor-grab text-neutral-600 group-hover:text-neutral-400 md:block" aria-hidden />
+                          <span className={cn("w-6 text-center font-mono text-xs", index === 0 ? "font-semibold text-brand-hi" : "text-neutral-500")}>
+                            {index + 1}
+                          </span>
+                          <div className="flex flex-col">
+                            <button aria-label={`Move ${p.title} up`} title="Move up" onClick={() => reorder(index, index - 1)} disabled={index === 0} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
+                              <ArrowUp className="h-3.5 w-3.5" />
+                            </button>
+                            <button aria-label={`Move ${p.title} down`} title="Move down" onClick={() => reorder(index, index + 1)} disabled={index === items.length - 1} className="rounded p-0.5 text-neutral-400 hover:text-fg disabled:opacity-30">
+                              <ArrowDown className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                          <button
+                            aria-label={`Show ${p.title} first`}
+                            title="Show first on the site"
+                            onClick={() => reorder(index, 0)}
+                            disabled={index === 0}
+                            className="rounded p-1 text-neutral-400 hover:bg-white/5 hover:text-brand-hi disabled:invisible"
+                          >
+                            <ArrowUpToLine className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       </td>
                     )}
-                    <td className={cn("py-3 pr-4", !canReorder ? "pl-4" : "pl-4 md:pl-0")}>
+                    <td className={cn("py-3 pr-4", !canReorder && "pl-4")}>
                       <Link href={href} className="flex items-center gap-3">
                         <div className="relative h-11 w-[72px] shrink-0 overflow-hidden rounded-lg border border-line bg-ink">
                           {p.thumbnail ? (
