@@ -44,6 +44,11 @@ export async function api<T = unknown>(path: string, init: RequestInit & { json?
     body = JSON.stringify(init.json)
   }
   const res = await fetch(`${API_URL}${path}`, { ...init, headers, body })
+  // A 401 from /api/github/* means GitHub rejected the stored GitHub token
+  // (revoked/expired), not that the admin session is invalid — don't log out.
+  if (res.status === 401 && path.startsWith("/api/github/")) {
+    throw new ApiError(401, "GitHub token is invalid or expired. Reconnect GitHub.", "github_not_connected")
+  }
   if (res.status === 401 && path !== "/api/auth/login") {
     setToken(null)
     if (typeof window !== "undefined" && !window.location.pathname.startsWith("/admin/login")) {
